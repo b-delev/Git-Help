@@ -46,28 +46,88 @@ git commit -m "First commit"
 git remote add origin https://github.com/user/repo.git
 ```
 
+Commit history
+```git
+git log
+
+// Changes over time in a file
+git log -p <file>
+
+// Who changed what and when in file
+git blame <file>
+```
+
+Branches
+```git
+// List all branches
+git branch -av
+
+// Switch to branch
+git checkout <branch-name>
+
+// Create new branch
+git branch <branch-name>
+
+// Delete local branch
+git branch -d <branch-name>
+
+// Mark current commit with a tag
+git tag <tag-name>
+```
+
+
+Branches
+
+```git
+// Merge from branch into your current branch
+git branch  - check on what branch is in the moment
+git merge <branch>
+
+git rebase <branch>
+git rebase  --abort
+git rebase  --continue
+
+git mergetool
+```
+
+Discard current changes
+```git
+git stash
+```
 
 
 Working with remote
 ```git
 git remote
 
-// verify remote repo
+// Verify remote repo
 git remote -v
 
-//add remote repo
+// Add remote repo
 git remote
 git remote add origin https://github.com/user/repo.git
 git remote -v
 git push
 
-// inspect a remote
+// Download remote, but don't integrate into HEAD
+git fetch <remote>
+
+// Download changes and integrate into HEAD
+git pull <remote> <branch>
+
+// Upload local changes to remote
+git push <remote> <branch>
+
+// Delete remote branch
+git branch -dr <remote/branch>
+
+// Inspect a remote
 git remote show origin
 
-// rename a remote
+// Rename a remote
 git remote rename test delev
 
-// delete remote repo
+// Delete remote repo
 git remote rm name-of-the-repo
 ```
 
