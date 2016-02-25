@@ -131,3 +131,8 @@ git remote rename test delev
 git remote rm name-of-the-repo
 ```
 
+Undo one ocmmit on remote master branch
+```git
+git reset HEAD^
+git push -u origin master --force
+```
