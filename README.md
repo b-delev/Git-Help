@@ -136,3 +136,8 @@ Undo one commit on remote master branch
 git reset HEAD^
 git push -u origin master --force
 ```
+
+Generate a patch
+```git
+git format-patch -1 commit_id -o ../DirectoryLocation
+```
