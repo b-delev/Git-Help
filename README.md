@@ -269,3 +269,26 @@ git push
 
 
 ```
+
+
+Reflog - git keeps second log of every move you make only in your local repository. When you clone a repo you start reflog from scratch.
+```git
+git log --oneline
+
+$ git reflog
+73e1c02 HEAD@{0}: rebase -i (start): checkout HEAD~2
+dc3415f HEAD@{1}: checkout: moving from master to test2
+8cea2a9 HEAD@{2}: checkout: moving from test2 to master
+3cf8156 HEAD@{3}: commit (cherry-pick): INFO
+
+ 
+$ git reset --hard dc3415f | HEAD@{1}
+
+// Detailed reflog
+git log --walk-reflogs
+
+// Create branch from reflog
+git branch {name_of_a_new_branch} dc3415f | HEAD@{1}
+
+git checkout {name_of_a_new_branch}
+```
