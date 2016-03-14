@@ -141,3 +141,131 @@ Generate a patch
 ```git
 git format-patch -1 commit_id -o ../DirectoryLocation
 ```
+
+Stashing - backing up the current stage 
+```git
+
+// List all the stashes
+git stash list 
+
+$ git stash list
+stash@{0}: WIP on master: 686b55d Add test2.
+stash@{1}: WIP on gerbils: b2bdead Add test1.
+stash@{2}: WIP on gerbils: b2bdead Add test.
+
+
+// Add to stash
+git stash
+// or
+git stash save
+
+// Get latest stash
+git stash apply
+// or
+git stash apply stash@{1}
+
+// If there is a conflict on applying a stash, you have to reset your current changes or commit them.
+
+// Drop lastest stash
+git stash drop
+// or 
+git stash drop stash@{0}
+
+// Remove the last stash from the stash stack
+git stash pop
+
+// Stash only not staged for commit area
+git stash save --keep-index
+// Now you can commit your latest changes added to staging area
+
+// Include untracked files in the stash
+git stash save --include-untracked
+
+git stash show
+// or
+git stash show stash@{0}
+
+git stash show --patch
+
+// You can save the stash with a message
+git stash save "Add gerbils page, start index."
+
+// Create new branch out of a stash
+git stash branch test2 stash@{0}
+git commit -am "Test 2"
+
+// Clear the whole stash stack
+git stash clear
+
+```
+
+
+Tree filter
+If you want to remove a file in history
+```git
+git filter-branch --tree-filter <command> ...
+// specify any shell command
+
+git filter-branch --tree-filter 'rm -f passwords.txt'
+
+// With --all you will remove the file from all branches, all commits
+git filter-branch --tree-filter 'rm -f passwords.txt' -- --all
+
+// If filter-branch leave some commits empty, you can remove them by
+git filter-branch -f --prune-empty -- --all
+```
+
+Cherry-pick
+```git
+// We can get directly a commit from any branch in the tree with cherry-pick hash
+git cherry-pick 53212e5
+// Now you have the commit from different branch as latest commit in your branch.
+// You can give a different name of that commit:
+ git cherry-pick --edit 5321
+
+// You can get two commits and put them in the staging area, but no commit
+git cherry-pick --no-commit 53212e5 55ae374
+
+// Or get the commit without the name 
+git cherry-pick -x 5321
+
+// The commit you get maybe is somebody elses, you can add your name
+git cherry-pick --signoff 5321
+```
+
+
+Submodules
+```git
+// Git repo inside a git repo
+// Add css to your project
+git submodule add git@github.com:css.git
+git commit -m "Add CSS submodule."
+git push
+
+// you can see .gitmodules for all your modules
+.gitmodules
+
+// When you update the module you have to commit and push in the module
+// Than got the the parent project and add {module} | commit | push too
+
+
+// When you have a project with submodules you can clone it, but you should init & update the submodules with
+git submodule init
+git submodule update
+
+// When you work on a submodule occasionally other developers can pull your changes by simply
+git pull 
+git submodule update
+
+// When you have to make changes in a submodule first you have to associate the submodule with a brach by
+git branch test2 b6bb78f 
+git checkout master
+git merge b6bb78f
+git push
+cd .. // to the parent project
+git add css
+git commit -m "The new update in css submodule."
+git push
+
+
+```
